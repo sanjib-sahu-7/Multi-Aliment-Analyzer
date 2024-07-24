@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+body {
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOPtTk7XzuXiIQyqjrRDUh8pk3-pcAbhY3KrlJFAwxzg&s');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  background-color: #343a40; /* Dark background color */
+}
+
+.navbar-brand {
+  font-family: 'Arial Rounded MT Bold', sans-serif; /* Custom font family */
+  color: #ffffff !important; /* White text color */
+}
+
+.navbar-brand:hover {
+  color: #17a2b8 !important; /* Hover color */
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff !important; /* White text color */
+}
+
+.navbar-nav .nav-link:hover {
+  color: #17a2b8 !important; /* Hover color */
+}
+
+.navbar-toggler {
+  border-color: #ffffff; /* White border color */
+}
+
+.navbar-toggler-icon {
+  background-color: #ffffff; /* White icon color */
+}
+
+.menu-btn {
+  color: #ffffff;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.main-content {
+  padding: 30px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+/* Additional CSS from previous code */
+
+.profile-header {
+  background-color: black;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: block;
+  border: 5px solid #ffffff; /* White border */
+}
+
+.profile-name {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: White; /* Dark blue */
+}
+
+.profile-details {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: Gray;
+}
+
+.btn-update-profile {
+  width: 100%;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.btn-update-profile:hover {
+  background-color: #2c3e50; /* Dark blue */
+}
+
+.btn-update-profile:focus {
+  background-color: #1d2836; /* Darker blue */
+  box-shadow: none;
+}
+
+.feature-options {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+.feature-options h4 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #2c3e50; /* Dark blue */
+}
+
+.feature-description {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #495057; /* Gray */
+}
+
+.btn-feature {
+  width: 100%;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.btn-feature:hover {
+  background-color: #2c3e50; /* Dark blue */
+}
+
+.btn-feature:focus {
+  background-color: #1d2836; /* Darker blue */
+  box-shadow: none;
+}
+.feature {
+    margin-bottom: 40px;
+  }
+
+  .feature-img {
+  max-width: 600px; /* Set maximum width to 800px */
+  height: 300px; /* Set height to 600px */
+  width: 100%; /* Ensure image fills container width */
+  border-radius: 15px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+ 
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <!-- Custom menu button -->
+      <div class="menu-btn" onclick="openNav()">&#9776;</div>
+      <a class="navbar-brand" href="/">MultiAilment Analyzer</a>
+      <!-- Menu button -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Side Navbar -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+         <div class="profile-header text-center">
+          {% if user.profile_image %}
+            <img src="data:image/jpeg;base64,{{ user.profile_image }}" alt="Profile Picture" class="profile-pic">
+          {% else %}
+            <img src="https://via.placeholder.com" alt="Profile Picture" class="profile-pic">
+          {% endif %}
+          <h2 class="profile-name">{{ user.name }}</h2>
+          <!-- Add profile details here -->
+          <div class="profile-details">
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Address:</strong> {{ user.address }}</p>
+            <!-- Add more profile details as needed -->
+          </div>
+		 </div>
+    <a href="/update_profile">Update Profile</a>
+	<a href="/disease_detection" >Detect Disease</a>
+    <a href="/logout">Logout</a>
+    <!-- Add more options as needed -->
+  </div>
+  <!-- Pop-up Message Section -->
+    <div id="popup-message" class="alert alert-info" style="display: none;">
+      <!-- Display the message here -->
+    </div>
+  <!-- Main Content -->
+  <div class="container main-content" id="main-content">
+    <!-- Add your main content here -->
+     <div class="col-md-12">
+      <!-- Feature options -->
+       <div class="feature-options">
+	    <div class="row feature">
+         <div class="col-md-6">
+          <h4 class="mb-3">Disease Detection from Image</h4>
+          <p>Analyze symptoms provided by the user to detect potential lung-related diseases.</p>
+          <a href="/disease_detection" class="btn btn-primary">Detect Disease</a>
+         </div>
+         <div class="col-md-6">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHVmfNw7uViRg15N0pwNLT35DLxppXiNxOwjNv9fEVzw&s" alt="Doctor Consultation" class="feature-img">
+         </div>
+        </div>
+	    <div class="row feature">
+         <div class="col-md-6">
+          <h4 class="mb-3">Add Patient Details</h4>
+          <p>Add and manage patient details including name, age, gender, contact information, and medical history.</p>
+          <a href="{{ url_for('add_patient_details') }}" class="btn btn-primary">Add Patient</a>
+         </div>
+         <div class="col-md-6">
+          <img src="https://png.pngtree.com/thumb_back/fh260/background/20210907/pngtree-young-doctor-with-patient-records-image_818612.jpg" alt="Doctor Consultation" class="feature-img">
+         </div>
+        </div>
+	    <div class="row feature">
+         <div class="col-md-6">
+          <h4 class="mb-3">View Patients List</h4>
+          <p>View a list of patients added by the user.</p>
+          <a href="{{ url_for('view_patients') }}" class="btn btn-primary">View Patients</a>
+         </div>
+         <div class="col-md-6">
+          <img src="https://i.pinimg.com/736x/c6/7c/c1/c67cc114fc289a3eacc442da873053b2.jpg" alt="Doctor Consultation" class="feature-img">
+         </div>
+        </div>
+      </div>
+     </div>
+	</div>
+	
+  <!-- Bootstrap JS and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <!-- JavaScript for opening and closing the side navbar -->
+    <script>
+      var isMenuOpen = false;
+      var initialMarginLeft;
+
+      window.onload = function() {
+        // Store the initial margin-left value
+        initialMarginLeft = document.getElementById("main-content").style.marginLeft;
+		// Display the pop-up message if available
+        var message = "{{ message }}"; // Assuming the message is passed from the server-side
+        if (message) {
+          showMessage(message);
+        }
+      };
+
+      function toggleMenu() {
+        if (isMenuOpen) {
+          closeNav();
+          isMenuOpen = false;
+        } else {
+          openNav();
+          isMenuOpen = true;
+        }
+      }
+
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        // Shift main content to the right when menu is opened
+        document.getElementById("main-content").style.marginLeft = "250px";
+      }
+
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        // Restore main content position when menu is closed
+        document.getElementById("main-content").style.marginLeft = initialMarginLeft;
+      }
+	  
+	  function showMessage(message) {
+        // Display the pop-up message
+        var popupMessage = document.getElementById("popup-message");
+        popupMessage.innerHTML = message;
+        popupMessage.style.display = "block";
+
+        // Hide the message after 5 seconds
+        setTimeout(function() {
+          popupMessage.style.display = "none";
+        }, 5000); // Adjust the duration as needed
+      }
+    </script>
+</body>
+</html>

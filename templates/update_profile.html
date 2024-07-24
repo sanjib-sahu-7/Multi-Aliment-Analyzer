@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Profile</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+     body {
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOPtTk7XzuXiIQyqjrRDUh8pk3-pcAbhY3KrlJFAwxzg&s');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+/* Custom CSS for navbar */
+.navbar {
+  background-color: #343a40; /* Dark background color */
+}
+
+.navbar-brand {
+  font-family: 'Arial Rounded MT Bold', sans-serif; /* Custom font family */
+  color: #ffffff !important; /* White text color */
+}
+
+.navbar-brand:hover {
+  color: #17a2b8 !important; /* Hover color */
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff !important; /* White text color */
+}
+
+.navbar-nav .nav-link:hover {
+  color: #17a2b8 !important; /* Hover color */
+}
+
+.navbar-toggler {
+  border-color: #ffffff; /* White border color */
+}
+
+.navbar-toggler-icon {
+  background-color: #ffffff; /* White icon color */
+}
+
+    .container {
+      margin-top: 20px;
+    }
+    .form-container {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .btn-update-profile {
+      width: 100%;
+      font-size: 18px;
+    }
+    .btn-update-profile:hover {
+      background-color: #2c3e50; /* Dark blue */
+    }
+    .btn-update-profile:focus {
+      background-color: #1d2836; /* Darker blue */
+      box-shadow: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/">MultiAilment Analyzer</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="form-container">
+          <h2 class="text-center mb-4">Update Profile</h2>
+          <form action="/update_profile" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address" required>
+            </div>
+            <div class="form-group">
+              <label for="profile_image">Profile Image</label>
+              <input type="file" class="form-control-file" id="profile_image" name="profile_image">
+            </div>
+            <button type="submit" class="btn btn-primary btn-update-profile">Update Profile</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

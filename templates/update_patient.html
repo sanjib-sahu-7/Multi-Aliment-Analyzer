@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Patient Details</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+     body {
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOPtTk7XzuXiIQyqjrRDUh8pk3-pcAbhY3KrlJFAwxzg&s');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+/* Custom CSS for navbar */
+.navbar {
+  background-color: #343a40; /* Dark background color */
+}
+
+.navbar-brand {
+  font-family: 'Arial Rounded MT Bold', sans-serif; /* Custom font family */
+  color: #ffffff !important; /* White text color */
+}
+
+.navbar-brand:hover {
+  color: #17a2b8 !important; /* Hover color */
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff !important; /* White text color */
+}
+
+.navbar-nav .nav-link:hover {
+  color: #17a2b8 !important; /* Hover color */
+}
+
+.navbar-toggler {
+  border-color: #ffffff; /* White border color */
+}
+
+.navbar-toggler-icon {
+  background-color: #ffffff; /* White icon color */
+}
+    .container {
+      margin-top: 20px;
+    }
+    .form-container {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .btn-submit {
+      width: 100%;
+      font-size: 18px;
+    }
+    .btn-submit:hover {
+      background-color: #2c3e50; /* Dark blue */
+    }
+    .btn-submit:focus {
+      background-color: #1d2836; /* Darker blue */
+      box-shadow: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/">MultiAilment Analyzer</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="form-container">
+        <h2 class="text-center mb-4">Update Patient Details</h2>
+         <form action="/update_patient/{{ patient._id }}" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="name">Patient Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter patient's name" required value="{{ patient.name }}">
+          </div>
+          <div class="form-group">
+            <label for="age">Patient Age</label>
+            <input type="number" class="form-control" id="age" name="age" placeholder="Enter patient's age" required value="{{ patient.age }}">
+          </div>
+          <div class="form-group">
+            <label for="gender">Patient Gender</label>
+            <select class="form-control" id="gender" name="gender" required>
+              <option value="male" {% if patient.gender == 'male' %} selected {% endif %}>Male</option>
+              <option value="female" {% if patient.gender == 'female' %} selected {% endif %}>Female</option>
+              <option value="other" {% if patient.gender == 'other' %} selected {% endif %}>Other</option>
+            </select>
+          </div>
+         <div class="form-group">
+              <label for="organ">Disease Organ </label>
+              <select class="form-control" id="organ" name="organ">
+                <option value="lung">Lung</option>
+                <option value="brain">Brain</option>
+                <option value="skin">Skin</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="disease">Disease Name</label>
+              <select class="form-control" id="disease" name="disease">
+                <!-- Disease options will be dynamically populated based on the selected organ -->
+              </select>
+            </div>
+          <div class="form-group">
+            <label for="diseaseImage">Update Disease Image</label>
+            <input type="file" class="form-control-file" id="diseaseImage" name="diseaseImage" accept="image/*">
+          </div>
+          <button type="submit" class="btn btn-primary btn-submit">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS and jQuery -->
+<script>
+    // Disease options for each organ
+    const diseaseOptions = {
+      lung: ['Bacterial Pneumonia', 'Corona Virus Disease', 'Tuberculosis', 'Viral Pneumonia'],
+      brain: ['Glioma', 'Meningioma', 'Notumor', 'Pituitary'],
+      skin: ['actinic keratosis', 'basal cell carcinoma', 'dermatofibroma', 'melanoma', 'nevus', 'pigmented benign keratosis', 'seborrheic keratosis', 'squamous cell carcinoma', 'vascular lesion']
+    };
+
+    // Function to populate disease options based on selected organ
+    function populateDiseaseOptions() {
+      const organSelect = document.getElementById('organ');
+      const diseaseSelect = document.getElementById('disease');
+      const selectedOrgan = organSelect.value;
+
+      // Clear previous options
+      diseaseSelect.innerHTML = '';
+
+      // Populate disease options based on selected organ
+      diseaseOptions[selectedOrgan].forEach(disease => {
+        const option = document.createElement('option');
+        option.textContent = disease;
+        option.value = disease;
+        diseaseSelect.appendChild(option);
+      });
+    }
+
+    // Populate disease options when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      populateDiseaseOptions();
+    });
+
+    // Update disease options when the organ selection changes
+    document.getElementById('organ').addEventListener('change', () => {
+      populateDiseaseOptions();
+    });
+  </script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

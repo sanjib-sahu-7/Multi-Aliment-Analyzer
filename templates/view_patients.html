@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Patients</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+body {
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOPtTk7XzuXiIQyqjrRDUh8pk3-pcAbhY3KrlJFAwxzg&s');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+}
+/* Custom CSS for navbar */
+.navbar {
+  background-color: #343a40; /* Dark background color */
+}
+
+.navbar-brand {
+  font-family: 'Arial Rounded MT Bold', sans-serif; /* Custom font family */
+  color: #ffffff !important; /* White text color */
+}
+
+.navbar-brand:hover {
+  color: #17a2b8 !important; /* Hover color */
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff !important; /* White text color */
+}
+
+.navbar-nav .nav-link:hover {
+  color: #17a2b8 !important; /* Hover color */
+}
+
+.navbar-toggler {
+  border-color: #ffffff; /* White border color */
+}
+
+.navbar-toggler-icon {
+  background-color: #ffffff; /* White icon color */
+}
+
+    .container {
+      margin-top: 20px;
+    }
+    .patient-details {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      margin-bottom: 20px;
+    }
+    .btn-update {
+      margin-top: 10px;
+    }
+	.disease-image {
+  max-width: 300px; /* Set maximum width for the image */
+  height: auto; /* Maintain aspect ratio */
+}
+
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/">MultiAilment Analyzer</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="container">
+  {% if patients %}
+  <h2 class="text-center mb-4">Patients Details</h2>
+  {% for patient in patients %}
+  <div class="patient-details row">
+    <div class="col-md-6">
+      <h3>{{ patient.name }}</h3>
+      <p><strong>Age:</strong> {{ patient.age }}</p>
+      <p><strong>Gender:</strong> {{ patient.gender }}</p>
+      <p><strong>Disease Organ:</strong> {{ patient.organ }}</p>
+      <p><strong>Disease:</strong> {{ patient.disease }}</p>
+    </div>
+    <div class="col-md-6">
+      <img src="data:image/jpeg;base64,{{ patient.disease_image }}" alt="Disease Image" class="disease-image img-fluid">
+    </div>
+    <div class="col-md-12">
+      <a href="{{ url_for('update_patient', patient_id=patient._id) }}" class="btn btn-primary btn-update">Update Details</a>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <div class="text-center mt-5">
+    <div class="alert alert-info" role="alert">
+      No patients found.
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+  <!-- Bootstrap JS and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

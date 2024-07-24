@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lung Disease Detection</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+     body {
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOPtTk7XzuXiIQyqjrRDUh8pk3-pcAbhY3KrlJFAwxzg&s');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+/* Custom CSS for navbar */
+.navbar {
+  background-color: #343a40; /* Dark background color */
+}
+
+.navbar-brand {
+  font-family: 'Arial Rounded MT Bold', sans-serif; /* Custom font family */
+  color: #ffffff !important; /* White text color */
+}
+
+.navbar-brand:hover {
+  color: #17a2b8 !important; /* Hover color */
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff !important; /* White text color */
+}
+
+.navbar-nav .nav-link:hover {
+  color: #17a2b8 !important; /* Hover color */
+}
+
+.navbar-toggler {
+  border-color: #ffffff; /* White border color */
+}
+
+.navbar-toggler-icon {
+  background-color: #ffffff; /* White icon color */
+}
+
+    .navbar {
+      background-color: #2c3e50; /* Dark blue */
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .navbar-brand {
+      color: #ffffff; /* White */
+      font-weight: bold;
+    }
+    .container {
+      margin-top: 20px;
+    }
+    .page-header {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+    .btn-submit {
+      width: 100%;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    .btn-submit:hover {
+      background-color: #2c3e50; /* Dark blue */
+    }
+    .btn-submit:focus {
+      background-color: #1d2836; /* Darker blue */
+      box-shadow: none;
+    }
+    .img-preview {
+      max-width: 100%;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/">MultiAilment Analyzer</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="page-header text-center">
+          <h2>Image-based Lung Disease Detection</h2>
+		  <form action="/lung_disease_detection" method="POST" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="imageUpload">Upload Image:</label>
+    <input type="file" class="form-control-file" id="imageUpload" name="image" accept="image/*" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Analyze Image</button>
+</form>
+          <div class="text-center">
+            <img id="imgPreview" class="img-preview d-none">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // Function to display preview of uploaded image
+    function previewImage(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('#imgPreview').attr('src', e.target.result);
+          $('#imgPreview').removeClass('d-none');
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    // Event listener for image upload input
+    $('#imageUpload').change(function () {
+      previewImage(this);
+    });
+  </script>
+</body>
+</html>
